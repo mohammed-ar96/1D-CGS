@@ -67,7 +67,11 @@ def transform(A,degree_list):
         B[i,i]=degree_list[i]
     return B
 
-
+def setup_seed(seed):
+    torch.manual_seed(seed)
+#     torch.cuda.manual_seed_all(seed)
+    np.random.seed(seed)
+    torch.backends.cudnn.deterministic = True
 
 # Train the hybrid model
 def train_1DCGS_model(features, edge_index, labels, num_epochs=3001, lr=0.005):
@@ -459,4 +463,5 @@ def SIR_betas(G,a_list,root_path):
         sir_list.append(sir_dict)
         path = root_path+str(inx)+'.csv'
         save_sir_dict(sir_dict,path)
+
     return sir_list
